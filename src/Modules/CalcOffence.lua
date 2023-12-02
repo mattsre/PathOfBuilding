@@ -2115,8 +2115,11 @@ function calcs.offence(env, actor, activeSkill)
 			output.HitTime = skillData.hitTimeOverride
 			output.HitSpeed = 1 / output.HitTime
 			--Brands always have hitTimeOverride
-			if skillCfg.skillName and skillCfg.skillName:match("Brand") then
+			if skillCfg.skillName and skillCfg.skillName:match("Brand") and output.Duration then
 				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
+			end
+			if skillCfg.skillName and skillCfg.skillName:match("Brand") then
+				output.PenanceTimeUntilExplosion = 20 / output.HitSpeed
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			output.HitTime = output.Time * skillData.hitTimeMultiplier
